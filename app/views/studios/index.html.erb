@@ -1,0 +1,23 @@
+<h3>List of studio you've created:</h3>
+<% if studios.any? %>
+  <table>
+    <tr>
+      <th>index</th>
+      <th>name</th>
+      <th>address</th>
+      <th>created at</th>
+    </tr>
+  <% studios.each_with_index do |studio, index| %>
+    <tr>
+      <td><%= index + 1 %></td>
+      <td><%= studio.name %></td>
+      <td><%= studio.address %></td>
+      <td><%= studio.created_at.strftime('%d %b %Y') %></td>
+      <td><%= button_to 'detail', studio, method: :get %></td>  
+    </tr>
+  <% end %>
+<% else %>
+  <p>you don't have any studio yet.</p>
+<% end %>
+  </table>
+<%= button_to 'Create a new studio', new_studio_path, method: :get %>

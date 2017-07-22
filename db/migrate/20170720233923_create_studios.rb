@@ -4,7 +4,7 @@ class CreateStudios < ActiveRecord::Migration[5.0]
       t.text :name, null: false
       t.text :description, null: false
       t.text :address, null: false
-      t.belongs_to :user,null: false
+      t.belongs_to :user
       t.timestamps
     end
   end

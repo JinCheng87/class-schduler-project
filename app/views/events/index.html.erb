@@ -1,0 +1,25 @@
+<h3>events for studio: <%= studio.name %></h3>
+<%if events.any? %>
+<table>
+  <tr>
+    <th>name</th>
+    <th>strats at</th>
+    <th>ends at</th>
+  </tr>
+  <% events.each do |event| %>
+  <tr>
+    <td><%= event.title %></td>
+    <td><%= event.starts_at.strftime('%a, %d %b %H:%M') %></td>
+    <td><%= event.ends_at.strftime('%a, %d %b %H:%M') %></td>
+    <td>
+      <%= button_to 'view', studio_event_path(studio,event),method: :get %>
+    </td>
+
+     
+  </tr>
+  <% end %>
+</table>
+<% else %>
+  <h3>there's not any event yet</h3>
+<% end %>
+<%= button_to 'create a event', new_studio_event_path(studio), method: :get %>

@@ -1,0 +1,10 @@
+<h1>event details</h1>
+<h3>title: <%= event.title %></h3>
+<h3> strats at: <%= event.starts_at.strftime('%a, %d %b %H:%M') %></h3>
+<h3>ends at: <%= event.ends_at.strftime('%a, %d %b %H:%M') %></h3>
+<h3>description: <%= event.description %></h3>
+
+<%= link_to 'back', studio_events_path(studio) %>
+<%= link_to 'edit', edit_studio_event_path(studio, event) %>
+<%= link_to 'delete', studio_event_path(studio,event), method: :delete, data: { confirm: 'are you sure?' } %>
+<%= button_to 'Join', root_path, method: :get %>

@@ -1,0 +1,9 @@
+<h1>studio name: <%= studio.name %></h1>
+<h3>address: <%= studio.address %></h3>
+<h3>owner: <%= owner_name %></h3>
+<p>description: <%= studio.description %></p>
+<%= link_to 'edit', edit_studio_path %>
+<%= link_to 'delete', studio, data: { confirm: 'Are you sure?', method: :delete} %>
+<%= link_to 'back', studios_path %>
+<br>
+<%= link_to 'check out all the events', studio_events_path(studio) %>

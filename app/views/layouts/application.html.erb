@@ -10,12 +10,12 @@
 
   <body>
     <nav>
-      <% if current_user %>
-        <p>Hello, <%= current_user.name.capitalize %></p>
+      <p><% if current_user %>
+        Hello, <%= current_user.name.capitalize %>
         <%= link_to 'Logout', destroy_user_session_path, method: :delete %>
       <% else %>
         <%= link_to 'Register', new_user_registration_path %>
-        <%= link_to 'Login', new_user_session_path %>
+        <%= link_to 'Login', new_user_session_path %></p>
       <% end %>
     </nav>
     <%= yield %>
