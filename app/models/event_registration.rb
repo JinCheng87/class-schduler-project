@@ -1,3 +1,0 @@
-class EventRegistration < ApplicationRecord
-  
-end

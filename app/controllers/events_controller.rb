@@ -2,26 +2,34 @@ class EventsController < ApplicationController
   before_action :find_studio
   before_action :find_event, except: [:new, :create, :index]
   def new
-    event = @studio.events.new
-    render :new, locals: { studio: @studio, event: event}
+    if is_owner
+      event = @studio.events.new
+      render :new, locals: { studio: @studio, event: event}
+    else
+      render :'error/not_found'
+    end
   end
 
   def index
     events = @studio.events.all
-    render :index, locals: { studio: @studio, events: events }
+    render :index, locals: { studio: @studio, events: events, is_owner: is_owner }
   end
 
   def create
-    event = @studio.events.new(event_params)
-    if event.save
-      redirect_to studio_event_path(@studio,event)
+    if is_owner
+      event = @studio.events.new(event_params)
+      if event.save
+        redirect_to studio_event_path(@studio,event)
+      else
+        render :new, locals: { studio: @studio, event: event }
+      end
     else
-      render :new, locals: { studio: @studio, event: event }
+      render :'error/not_found'
     end
   end
 
   def show
-    render :show, locals: { event: @event, studio: @studio }
+    render :show, locals: { event: @event, studio: @studio, is_owner: is_owner }
   end
 
   def edit
@@ -58,5 +66,9 @@ class EventsController < ApplicationController
 
   def event_params
     params.require(:event).permit(:title, :starts_at, :ends_at, :max_participants, :description, :studio_id)
+  end
+
+  def is_owner
+    current_user.id == @studio.user_id
   end
 end

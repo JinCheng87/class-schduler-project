@@ -22,4 +22,7 @@
 <% else %>
   <h3>there's not any event yet</h3>
 <% end %>
+
+<% if is_owner %>
 <%= button_to 'create a event', new_studio_event_path(studio), method: :get %>
+<% end %>

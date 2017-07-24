@@ -6,5 +6,5 @@ class Event < ApplicationRecord
   validates :max_participants, presence: true
 
   belongs_to :studio
-  has_many :users, through: :event_registration
+  has_and_belongs_to_many :users
 end

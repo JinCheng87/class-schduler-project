@@ -20,13 +20,22 @@ class StudiosController <ApplicationController
     end
   end
 
+  def all
+    studios = Studio.all
+    render :all, locals: { studios: studios }
+  end
+
   def show
     owner_name = User.find_by(id: @studio.user_id).name
-    render :show, locals: { studio: @studio, owner_name: owner_name }
+    render :show, locals: { studio: @studio, owner_name: owner_name, is_owner: is_owner }
   end
 
   def edit
+    if is_owner
     render :edit, locals: { studio: @studio }
+    else
+      render :'error/not_found'
+    end
   end
 
   def update
@@ -38,8 +47,12 @@ class StudiosController <ApplicationController
   end
 
   def destroy
-    @studio.destroy
-    redirect_to studios_path
+    if is_owner
+      @studio.destroy
+      redirect_to studios_path
+    else
+      render :'error/not_found'
+    end
   end
 
   private
@@ -52,5 +65,9 @@ class StudiosController <ApplicationController
 
   def studio_params
     params.require(:studio).permit(:name, :address, :description)
+  end
+
+  def is_owner
+    current_user.id == @studio.user_id
   end
 end

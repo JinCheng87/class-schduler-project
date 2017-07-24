@@ -1,1 +1,26 @@
 <h1>Welcome!</h1>
+<% if events.any? %>
+  <table>
+    <tr>
+      <th>event</th>
+      <th>date time</th>
+      <th>studio</th>
+      <th>address</th>
+      <th>paticipants</th>
+    </tr>
+    <% events.each do |event| %>
+      
+      <tr>
+        <td><%= link_to event.title, studio_event_path(Studio.find_by(id: event.studio_id), event) %></th>
+        <td><%= event.starts_at.strftime('%a, %d %b %H:%M') %></th>     <td><%= event.studio.name %></td>
+        <td><%= event.studio.address %></td>
+        <td><%=events.count %>/<%= event.max_participants %></th>
+
+    </tr>
+    <% end %>
+  </table>
+<% else %>
+<h3>you haven't sign up for any event yet.</h3>
+<% end %>
+
+<%= link_to 'Look up all the studios available', 'studios/all' %>
