@@ -8,16 +8,14 @@ class EventRegistrationsController < ApplicationController
     studio = Studio.find_by(id: event.studio_id)
     if event.users.ids.include?(current_user.id)
       flash[:notice] = "you've already signed up"
-      redirect_to '/'
     elsif
-      event.max_participants < event.users.count
+      event.max_participants <= event.users.count
       flash[:notice] = "This event is full"
-      redirect_to '/'
     else
       event.users << current_user
-      flash['notice'] = 'Successfully signed up!'
-      redirect_to '/'
+      flash[:notice] = 'Successfully signed up!'
     end
+    redirect_to 'studio_event_path(studio,event)'
   end
 
   def success

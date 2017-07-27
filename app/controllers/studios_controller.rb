@@ -32,7 +32,7 @@ class StudiosController <ApplicationController
 
   def edit
     if is_owner
-    render :edit, locals: { studio: @studio }
+      render :edit, locals: { studio: @studio }
     else
       render :'error/not_found'
     end
@@ -42,7 +42,7 @@ class StudiosController <ApplicationController
     if @studio.update_attributes(studio_params)
       redirect_to @studio
     else
-      render :edit, locals: { studio: @studio}
+      render :edit, locals: { studio: @studio }
     end
   end
 
